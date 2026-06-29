@@ -1,0 +1,52 @@
+#manifiesto {
+  padding: 10vh 5vw;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+#manifiesto::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(0,0,0,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(0,0,0,0.02) 0%, transparent 50%);
+}
+
+.manifiesto-inner { max-width: 1200px; margin: 0 auto; }
+
+.manifiesto-phrase {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 9rem);
+  line-height: 0.95;
+  color: var(--white);
+  margin-bottom: 3rem;
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.manifiesto-phrase.visible { opacity: 1; transform: translateY(0); }
+
+.manifiesto-phrase.hollow {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,0,0,0.25);
+}
+.manifiesto-phrase.dark { color: var(--rust); }
+
+.manifiesto-phrase .small-text {
+  display: block;
+  font-family: var(--font-elegant);
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: var(--bone);
+  margin-top: 0.8rem;
+  -webkit-text-stroke: 0;
+}
+
+.manifiesto-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,0,0,0.15), transparent);
+  margin: 2rem 0;
+}

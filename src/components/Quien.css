@@ -1,0 +1,100 @@
+#quien {
+  padding: 12vh 5vw 10vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.quien-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 6vw;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.quien-visual { position: relative; }
+
+.quien-portrait {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, #111 0%, #222 50%, #111 100%);
+  position: relative;
+  overflow: hidden;
+}
+.quien-portrait::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 60% 40%, rgba(255,255,255,0.05) 0%, transparent 60%),
+    repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(255,255,255,0.015) 8px, rgba(255,255,255,0.015) 9px);
+  z-index: 1;
+}
+
+.portrait-placeholder {
+  position: absolute;
+  inset: 0;
+}
+
+.quien-accent {
+  position: absolute;
+  top: -2rem; left: -2rem;
+  width: 4rem; height: 4rem;
+  border-top: 2px solid var(--rust);
+  border-left: 2px solid var(--rust);
+}
+
+.quien-number {
+  position: absolute;
+  bottom: -1rem; right: -1.5rem;
+  font-family: var(--font-display);
+  font-size: 8rem;
+  color: rgba(0,0,0,0.04);
+  line-height: 1;
+  user-select: none;
+}
+
+.quien-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 2rem;
+}
+.quien-title em {
+  font-style: italic;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,0,0,0.5);
+}
+
+.quien-divider {
+  width: 50px; height: 2px;
+  background: var(--rust);
+  margin: 2.5rem 0;
+}
+
+.quien-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--bone);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+.quien-text strong { color: var(--cream); font-weight: 400; }
+
+.quien-quote {
+  font-family: var(--font-elegant);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--ember);
+  line-height: 1.5;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--rust);
+}
+
+@media (max-width: 1024px) {
+  .quien-grid { grid-template-columns: 1fr; }
+}

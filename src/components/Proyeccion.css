@@ -1,0 +1,120 @@
+#proyeccion {
+  padding: 12vh 5vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.proy-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 6vw;
+  align-items: start;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.proy-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 8rem);
+  line-height: 0.88;
+  color: var(--white);
+  margin-bottom: 2.5rem;
+}
+.proy-title .accent { color: var(--rust); }
+
+.proy-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--bone);
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.proy-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 1rem;
+}
+.proy-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  transition: all 0.3s;
+  cursor: none;
+}
+.proy-item:hover { padding-left: 0.8rem; border-bottom-color: var(--rust); }
+
+.proy-item-num {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--rust);
+  min-width: 2rem;
+}
+.proy-item-text {
+  font-size: 0.9rem;
+  color: var(--cream);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.proy-visual {
+  position: sticky;
+  top: 20vh;
+}
+.proy-card {
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.proy-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.15));
+}
+
+.proy-card-icon {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  color: rgba(0,0,0,0.08);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+.proy-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.proy-card-text {
+  font-size: 0.9rem;
+  color: var(--bone);
+  line-height: 1.7;
+}
+
+.proy-locations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+.proy-loc {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dust);
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+@media (max-width: 1024px) {
+  .proy-grid { grid-template-columns: 1fr; }
+  .proy-visual { position: relative; top: auto; }
+}
