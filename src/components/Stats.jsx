@@ -1,14 +1,10 @@
 import { useEffect } from 'react';
+import { useLang } from '../components/context/LangContext';
 import './Stats.css';
 
-const STATS = [
-  { number: '+100', label: 'Murales', desc: 'Intervenciones realizadas' },
-  { number: '15+', label: 'Ciudades', desc: 'Presencia nacional e internacional' },
-  { number: '500K', label: 'Personas impactadas', desc: 'Vida cotidiana transformada' },
-  { number: '∞', label: 'Legado', desc: 'Arte que permanece en la memoria' },
-];
-
 export default function Stats() {
+  const { t } = useLang();
+
   useEffect(() => {
     const counters = document.querySelectorAll('.stat-number');
     const observer = new IntersectionObserver((entries) => {
@@ -29,7 +25,7 @@ export default function Stats() {
   return (
     <section id="stats">
       <div className="stats-grid">
-        {STATS.map((s, i) => (
+        {t.stats.map((s, i) => (
           <div className="stat-item reveal" key={i} style={{ transitionDelay: `${i * 0.1}s` }}>
             <span className="stat-number">{s.number}</span>
             <div className="stat-label">{s.label}</div>

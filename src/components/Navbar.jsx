@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useLang } from '../components/context/LangContext';
 import './Navbar.css';
-import firma from "./firma.png"
+import firma from "./firma2.png"
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { lang, t, toggle } = useLang();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -17,16 +19,34 @@ export default function Navbar() {
     setMobileOpen(false);
   };
 
+  const navItems = [
+    ['#quien', t.nav.quien],
+    ['#servicios', t.nav.servicios],
+    ['#galeria', t.nav.galeria],
+    ['#identidad', t.nav.identidad],
+    ['#proyeccion', t.nav.proyeccion],
+  ];
+
+  const mobileItems = [
+    ['#quien', t.nav.mobile[0]],
+    ['#servicios', t.nav.mobile[1]],
+    ['#galeria', t.nav.mobile[2]],
+    ['#proyeccion', t.nav.mobile[3]],
+    ['#contacto', t.nav.mobile[4]],
+  ];
+
   return (
     <>
-      {/* Mobile menu */}
       <div className={`mobile-menu${mobileOpen ? ' open' : ''}`}>
         <button className="mobile-close" onClick={() => setMobileOpen(false)}>✕</button>
-        {['#quien','#servicios','#galeria','#proyeccion','#contacto'].map((href, i) => (
-          <a key={i} href={href} onClick={(e) => { e.preventDefault(); scrollTo(href); }}>
-            {['Quién es','Servicios','Obras','Proyección','Contacto'][i]}
+        {mobileItems.map(([href, label]) => (
+          <a key={href} href={href} onClick={(e) => { e.preventDefault(); scrollTo(href); }}>
+            {label}
           </a>
         ))}
+        <button className="mobile-lang-btn" onClick={toggle}>
+          {lang === 'es' ? 'EN' : 'ES'}
+        </button>
       </div>
 
       <nav className={scrolled ? 'scrolled' : ''}>
@@ -34,15 +54,22 @@ export default function Navbar() {
           <img src={firma} className="nav-logo-img" alt="Gastón Liberto" />
         </a>
         <ul className="nav-links">
-          {[['#quien','Quién soy'],['#servicios','Servicios'],['#galeria','Obras'],['#identidad','Identidad'],['#proyeccion','Proyección']].map(([href, label]) => (
+          {navItems.map(([href, label]) => (
             <li key={href}>
               <a href={href} onClick={(e) => { e.preventDefault(); scrollTo(href); }}>{label}</a>
             </li>
           ))}
         </ul>
-        <a href="#contacto" className="nav-cta" onClick={(e) => { e.preventDefault(); scrollTo('#contacto'); }}>
-          Contacto
-        </a>
+        <div className="nav-right">
+          <button className="lang-toggle" onClick={toggle} aria-label="Cambiar idioma">
+            <span className={lang === 'es' ? 'active' : ''}>ES</span>
+            <span className="lang-sep">/</span>
+            <span className={lang === 'en' ? 'active' : ''}>EN</span>
+          </button>
+          <a href="#contacto" className="nav-cta" onClick={(e) => { e.preventDefault(); scrollTo('#contacto'); }}>
+            {t.nav.contacto}
+          </a>
+        </div>
         <button className="hamburger" onClick={() => setMobileOpen(true)} aria-label="Menú">
           <span /><span /><span />
         </button>

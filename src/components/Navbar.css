@@ -131,3 +131,61 @@ nav:not(.scrolled) .nav-links a:hover { color: #fff; }
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
 }
+
+/* ── LANGUAGE TOGGLE ── */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(0,0,0,0.15);
+  transition: border-color 0.3s;
+}
+nav:not(.scrolled) .lang-toggle { border-color: rgba(255,255,255,0.35); }
+.lang-toggle:hover { border-color: rgba(0,0,0,0.5); }
+nav:not(.scrolled) .lang-toggle:hover { border-color: rgba(255,255,255,0.8); }
+
+.lang-toggle span {
+  color: var(--dust);
+  transition: color 0.25s;
+}
+nav:not(.scrolled) .lang-toggle span { color: rgba(255,255,255,0.5); }
+
+.lang-toggle span.active {
+  color: var(--rust);
+  font-weight: 500;
+}
+nav:not(.scrolled) .lang-toggle span.active { color: #fff; }
+
+.lang-sep { color: rgba(0,0,0,0.2) !important; }
+nav:not(.scrolled) .lang-sep { color: rgba(255,255,255,0.3) !important; }
+
+.mobile-lang-btn {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.15em;
+  background: none;
+  border: 1px solid rgba(0,0,0,0.2);
+  color: #555;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.3s;
+}
+.mobile-lang-btn:hover { border-color: #000; color: #000; }
+
+@media (max-width: 768px) {
+  .nav-right { display: none; }
+}

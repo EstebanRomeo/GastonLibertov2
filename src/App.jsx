@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { LangProvider } from './components/context/LangContext';
 import './styles/global.css';
 
 import Cursor from './components/Cursor';
@@ -15,16 +16,8 @@ import Manifiesto from './components/Manifiesto';
 import Contacto from './components/Contacto';
 import useReveal from './components/useReveal';
 
-export default function App() {
+function Site() {
   useReveal();
-
-  // Stagger stat items on mount
-  useEffect(() => {
-    document.querySelectorAll('.stat-item').forEach((el, i) => {
-      el.style.transitionDelay = (i * 0.1) + 's';
-    });
-  }, []);
-
   return (
     <>
       <Cursor />
@@ -42,5 +35,13 @@ export default function App() {
         <Contacto />
       </main>
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <LangProvider>
+      <Site />
+    </LangProvider>
   );
 }

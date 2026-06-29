@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
+import { useLang } from './context/LangContext';
 import './Galeria.css';
+
 /*Maradona */
 import maradona from "./img/maradona.jpeg"
 import maradona2 from "./img/maradona2.jpeg"
@@ -29,106 +31,38 @@ import mural2 from "./img/mural2.jpeg"
 import mural3 from "./img/mural3.jpeg"
 import mural4 from "./img/mural4.jpeg"
 import mural5 from "./img/mural5.jpeg"
-/*Maradona */
+/*Empresas */
 import empresa from "./img/empresa.jpeg"
 import empresa1 from "./img/empresa1.jpeg"
 import empresa2 from "./img/empresa2.jpeg"
-
+/*Obras */
 import messi from "./img/messi.jpg"
 import messi2 from "./img/messi2.jpg"
 import messi3 from "./img/messi3.jpeg"
 import aimar from "./img/aimar.jpeg"
 import copa from "./img/copa.jpeg"
-/*Maradona */
+/*Azada Verde */
 import azadaverde from "./img/azadaverde.jpeg"
 import azada2 from "./img/azada2.jpeg"
 
-
-
-const CATEGORIAS = [
-  {
-    nombre: 'Camino de D10S',
-    tag: 'Homenaje · Fútbol · Cultura popular',
-    images: [
-      maradona,
-      maradona2,
-      maradona3,
-      maradona4,
-      maradona5,
-    ],
-  },
-  {
-    nombre: 'Manifiesto',
-    tag: 'Identidad · Mensaje · Arte urbano',
-    images: [
-      manifesto,
-      manifesto2,
-      manifesto3,
-      manifesto4,
-    ],
-  },
-  {
-    nombre: 'Treasures',
-    tag: 'Quatar 2026',
-    images: [
-      acidarab,
-      adolecencia,
-      cabalgando,
-      elmapa,
-      labarca,
-      lapalabra,
-      mardeneon,
-      natural,
-      nuevasluces,
-      tuboca,
-      viento,
-    ],
-  },
-  {
-    nombre: 'Obras',
-    tag: 'Muralismo · Gran escala · Comunidad',
-    images: [
-      messi,
-      messi2,
-      messi3,
-      aimar,
-      copa,
-    ],
-  },
-  {
-    nombre: 'Empresas e instituciones',
-    tag: 'Branding · Espacios corporativos · Arte',
-    images: [
-      empresa,
-      empresa1,
-      empresa2,
-    ],
-  },
-  {
-    nombre: 'Arte y medioambiente',
-    tag: 'Naturaleza · Conciencia · Muralismo',
-    images: [
-      mural1,
-      mural2,
-      mural3,
-      mural4,
-      mural5,
-    ],
-  },
-  {
-    nombre: 'Azada Verde · Operación Encina',
-    tag: 'Proyecto especial · Identidad · Territorio',
-    images: [
-      azadaverde,
-      azada2,
-    ],
-  },
+// Las imágenes separadas por categoría — el orden coincide con CATEGORIAS en LangContext
+const IMAGES = [
+  [maradona, maradona2, maradona3, maradona4, maradona5],
+  [manifesto, manifesto2, manifesto3, manifesto4],
+  [acidarab, adolecencia, cabalgando, elmapa, labarca, lapalabra, mardeneon, natural, nuevasluces, tuboca, viento],
+  [messi, messi2, messi3, aimar, copa],
+  [empresa, empresa1, empresa2],
+  [mural1, mural2, mural3, mural4, mural5],
+  [azadaverde, azada2],
 ];
 
 export default function Galeria() {
+  const { t } = useLang();
+  const cats = t.galeria.categorias; // nombres y tags vienen del idioma activo
+
   const [catActual, setCatActual] = useState(0);
   const [saliendo, setSaliendo] = useState(false);
-  const [direccion, setDireccion] = useState(1); // 1 = derecha, -1 = izquierda
+  const [direccion, setDireccion] = useState(1);
   const timeoutRef = useRef(null);
 
   const cambiar = (nueva, dir) => {
@@ -141,28 +75,20 @@ export default function Galeria() {
     }, 380);
   };
 
-  const siguiente = () => {
-    const nueva = (catActual + 1) % CATEGORIAS.length;
-    cambiar(nueva, 1);
-  };
-
-  const anterior = () => {
-    const nueva = (catActual - 1 + CATEGORIAS.length) % CATEGORIAS.length;
-    cambiar(nueva, -1);
-  };
+  const siguiente = () => cambiar((catActual + 1) % cats.length, 1);
+  const anterior = () => cambiar((catActual - 1 + cats.length) % cats.length, -1);
 
   useEffect(() => () => clearTimeout(timeoutRef.current), []);
 
-  const cat = CATEGORIAS[catActual];
+  const cat = cats[catActual];       // nombre y tag traducidos
+  const imgs = IMAGES[catActual];    // imágenes del array local
 
   return (
     <section id="galeria">
       <div className="galeria-header">
         <div className="reveal-left">
-          <p className="section-tag">Portfolio</p>
-          <div
-            className={`galeria-titulo-wrap${saliendo ? ` saliendo dir-${direccion > 0 ? 'right' : 'left'}` : ''}`}
-          >
+          <p className="section-tag">{t.galeria.tag}</p>
+          <div className={`galeria-titulo-wrap${saliendo ? ` saliendo dir-${direccion > 0 ? 'right' : 'left'}` : ''}`}>
             <h2 className="galeria-title">{cat.nombre}</h2>
             <p className="galeria-tag">{cat.tag}</p>
           </div>
@@ -170,31 +96,27 @@ export default function Galeria() {
 
         <div className="galeria-nav reveal-right">
           <span className="galeria-contador">
-            {String(catActual + 1).padStart(2, '0')} / {String(CATEGORIAS.length).padStart(2, '0')}
+            {String(catActual + 1).padStart(2, '0')} / {String(cats.length).padStart(2, '0')}
           </span>
           <button className="gal-nav-btn" onClick={anterior} aria-label="Anterior">←</button>
           <button className="gal-nav-btn" onClick={siguiente} aria-label="Siguiente">→</button>
         </div>
       </div>
 
-      {/* Indicadores de categoría */}
       <div className="galeria-dots">
-        {CATEGORIAS.map((c, i) => (
+        {cats.map((c, i) => (
           <button
             key={i}
             className={`gal-dot${i === catActual ? ' active' : ''}`}
             onClick={() => cambiar(i, i > catActual ? 1 : -1)}
-            aria-label={c.nombre}
             title={c.nombre}
           />
         ))}
       </div>
 
       <div className="galeria-track-wrapper">
-        <div
-          className={`galeria-track${saliendo ? ` saliendo dir-${direccion > 0 ? 'right' : 'left'}` : ' entrando'}`}
-        >
-          {cat.images.map((src, i) => (
+        <div className={`galeria-track${saliendo ? ` saliendo dir-${direccion > 0 ? 'right' : 'left'}` : ' entrando'}`}>
+          {imgs.map((src, i) => (
             <div className="galeria-item" key={`${catActual}-${i}`} style={{ animationDelay: `${i * 0.07}s` }}>
               <div className="gal-bg">
                 <div className="gal-img-wrap">
