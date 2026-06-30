@@ -1,5 +1,6 @@
 import { useLang } from '../components/context/LangContext';
 import './Contacto.css';
+import logo from "./strategy.png"
 
 const LOCATIONS = ['Barcelona','Granada','Miami','Córdoba','Río Cuarto'];
 
@@ -50,7 +51,7 @@ export default function Contacto() {
           </div>
           <div className="footer-copy">{c.copy}</div>
           <div className="footer-copy">
-            Powered by <img src="img/strategy.png" alt="Strategy" style={{width:'100px'}} />
+            Powered by <img src={logo} alt="Strategy" style={{width:'100px'}} />
           </div>
         </div>
       </div>
